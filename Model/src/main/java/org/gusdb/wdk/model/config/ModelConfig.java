@@ -70,6 +70,7 @@ public class ModelConfig implements OAuthConfig {
 
   private final ModelConfigUserDB _userDB;
   private final ModelConfigAppDB _appDB;
+  private final ModelConfigAppDB _annotationDB;
   private final ModelConfigAccountDB _accountDB;
 
   private final ModelConfigUserDatasetStore _userDatasetStoreConfig;
@@ -147,7 +148,7 @@ public class ModelConfig implements OAuthConfig {
   public ModelConfig(String modelName, String projectId, Path gusHome, boolean caching, boolean useWeights,
       String paramRegex, Optional<Path> secretKeyFile, Path wdkTempDir, String webServiceUrl, String assetsUrl,
       String smtpServer, String supportEmail, List<String> adminEmails, String emailSubject,
-      String emailContent, ModelConfigUserDB userDB, ModelConfigAppDB appDB, ModelConfigAccountDB accountDB,
+      String emailContent, ModelConfigUserDB userDB, ModelConfigAppDB appDB, ModelConfigAppDB annotationDB, ModelConfigAccountDB accountDB,
       ModelConfigUserDatasetStore userDatasetStoreConfig, QueryMonitor queryMonitor,
       boolean monitorBlockedThreads, int blockedThreshold, AuthenticationMethod authenticationMethod,
       String oauthUrl, String oauthClientId, String oauthClientSecret, String changePasswordUrl,
@@ -181,6 +182,7 @@ public class ModelConfig implements OAuthConfig {
     // databases
     _userDB = userDB;
     _appDB = appDB;
+    _annotationDB = annotationDB;
     _accountDB = accountDB;
 
     // user dataset config
@@ -292,6 +294,13 @@ public class ModelConfig implements OAuthConfig {
    */
   public ModelConfigAppDB getAppDB() {
     return _appDB;
+  }
+
+  /**
+   * @return the annotationDB
+   */
+  public ModelConfigAppDB getAnnotationDB() {
+    return _annotationDB;
   }
 
   /**

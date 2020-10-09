@@ -89,6 +89,10 @@
                     </optional>
                 </element>
 
+                <element name="annotationDb">
+                    <ref name="DBBaseContent" />
+                </element>
+
                 <element name="userDb">
                     <ref name="DBBaseContent" />
                     <attribute name="userSchema" />

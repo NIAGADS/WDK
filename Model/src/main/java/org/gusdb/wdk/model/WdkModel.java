@@ -98,6 +98,7 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
   public static final String DB_INSTANCE_APP = "APP";
   public static final String DB_INSTANCE_USER = "USER";
   public static final String DB_INSTANCE_ACCOUNT = "ACCT";
+  public static final String DB_INSTANCE_ANNOTATION = "ANNOT";
 
   public static final String INDENT = "  ";
 
@@ -120,6 +121,7 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
   private DatabaseInstance appDb;
   private DatabaseInstance userDb;
   private DatabaseInstance accountDb;
+  private DatabaseInstance annotationDb;
 
   private Optional<UserDatasetStore> _userDatasetStore;
 
@@ -552,12 +554,14 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
     ModelConfigUserDB userDbConfig = modelConfig.getUserDB();
     ModelConfigAccountDB accountDbConfig = modelConfig.getAccountDB();
     ModelConfigUserDatasetStore udsConfig = modelConfig.getUserDatasetStoreConfig();
+    ModelConfigAppDB annotationDbConfig = modelConfig.getAnnotationDB();
 
     QueryLogger.initialize(modelConfig.getQueryMonitor());
 
     appDb = new DatabaseInstance(appDbConfig, DB_INSTANCE_APP, true);
     userDb = new DatabaseInstance(userDbConfig, DB_INSTANCE_USER, true);
     accountDb = new DatabaseInstance(accountDbConfig, DB_INSTANCE_ACCOUNT, true);
+    annotationDb = new DatabaseInstance(annotationDbConfig, DB_INSTANCE_ANNOTATION, true);
 
     if (udsConfig == null) {
       _userDatasetStore = Optional.empty();
@@ -650,6 +654,7 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
     releaseDb(appDb);
     releaseDb(userDb);
     releaseDb(accountDb);
+    releaseDb(annotationDb);
     Events.shutDown();
     LOG.info("WDK Model resources released.");
   }
@@ -682,6 +687,10 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
 
   public DatabaseInstance getAppDb() {
     return appDb;
+  }
+
+  public DatabaseInstance getAnnotationDb() {
+    return annotationDb;
   }
 
   public DatabaseInstance getUserDb() {
@@ -1433,6 +1442,8 @@ public class WdkModel implements ConnectionContainer, Manageable<WdkModel>, Auto
         return appDb.getDataSource().getConnection();
       case DB_INSTANCE_USER:
         return userDb.getDataSource().getConnection();
+      case DB_INSTANCE_ANNOTATION:
+        return annotationDb.getDataSource().getConnection();
       default: // unknown
         throw new WdkModelException("Invalid DB Connection key.");
     }

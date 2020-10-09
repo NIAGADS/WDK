@@ -45,6 +45,7 @@ public class ModelConfigBuilder {
   // databases
   private ModelConfigUserDB _userDB;
   private ModelConfigAppDB _appDB;
+  private ModelConfigAppDB _annotationDB;
   private ModelConfigAccountDB _accountDB;
 
   // user dataset config
@@ -91,6 +92,7 @@ public class ModelConfigBuilder {
     assertNonNull("supportEmail", _supportEmail);
     assertNonNull("userDb", _userDB);
     assertNonNull("appDb", _appDB);
+    assertNonNull("annotationDb", _annotationDB);
     assertNonNull("accountDb", _accountDB);
     // TODO: should probably have a default stub for this to avoid NPEs
     //assertNonNull("userDatasetStoreConfig", _userDatasetStoreConfig);
@@ -125,6 +127,7 @@ public class ModelConfigBuilder {
       // databases
       _userDB,
       _appDB,
+      _annotationDB,
       _accountDB,
 
       // user dataset config
@@ -247,6 +250,14 @@ public class ModelConfigBuilder {
   public void setAppDB(ModelConfigAppDB appDB) {
     _appDB = appDB;
   }
+
+/**
+ * @param annotationDB
+ *      the annotationDB to set
+ */
+public void setAnnotationDB(ModelConfigAppDB annotationDB) {
+  _annotationDB = annotationDB;
+}
 
   /**
    * @param accountDB

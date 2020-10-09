@@ -60,6 +60,9 @@ public class ModelConfigParser extends XmlParser {
     // load application db
     configureNode(digester, "modelConfig/appDb", ModelConfigAppDB.class, "setAppDB");
 
+    // load annotation db
+    configureNode(digester, "modelConfig/annotationDb", ModelConfigAppDB.class, "setAnnotationDB");
+
     // load user db
     configureNode(digester, "modelConfig/userDb", ModelConfigUserDB.class, "setUserDB");
 
